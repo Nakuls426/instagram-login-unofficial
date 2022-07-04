@@ -57,8 +57,8 @@ public abstract class IGRequest<T extends IGResponse> {
             if (i + 1 < strings.length && strings[i] != null && strings[i + 1] != null
                     && !strings[i].toString().isEmpty()
                     && !strings[i + 1].toString().isEmpty()) {
-                builder.append(URLEncoder.encode(strings[i].toString(), StandardCharsets.UTF_8)).append("=")
-                        .append(URLEncoder.encode(strings[i + 1].toString(), StandardCharsets.UTF_8)).append("&");
+                builder.append(URLEncoder.encode(strings[i].toString(), "UTF-8")).append("=")
+                        .append(URLEncoder.encode(strings[i + 1].toString(), "UTF-8")).append("&");
             }
         }
 
