@@ -9,6 +9,7 @@ plugins {
 
 group 'com.nakul.ig'
 version '1.0'
+archivesBaseName = 'instagramlogin'
 
 repositories {
     mavenCentral()
@@ -27,6 +28,46 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenPublish(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar {
+                classifier "sources"
+            }
+
+            groupId group
+            artifactId archivesBaseName
+            version version
+
+            pom {
+                name = "Instagram Login"
+                description = "initial commit"
+                url = "https://github.com/Nakuls426/instagram-login-unofficial"
+
+                developers {
+                    developer {
+                        id = "instagramlogin"
+                        name = "instagramlogin"
+                        email = ""
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenPublish
 }
