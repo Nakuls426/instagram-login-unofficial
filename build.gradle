@@ -33,6 +33,12 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+javadoc.failOnError = false
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
 test {
     useJUnitPlatform()
 }
@@ -41,29 +47,38 @@ publishing {
     publications {
         mavenPublish(MavenPublication) {
             from components.java
-
             artifact sourcesJar {
                 classifier "sources"
             }
-
+            artifact javadocJar {
+                classifier "javadoc"
+            }
             groupId group
             artifactId archivesBaseName
             version version
-
             pom {
-                name = "Instagram Login"
-                description = "initial commit"
+                name = "instaunofficial"
+                description = "Java HTTP Client for Instagram"
                 url = "https://github.com/Nakuls426/instagram-login-unofficial"
-
-                developers {
-                    developer {
-                        id = "instagramlogin"
-                        name = "instagramlogin"
-                        email = ""
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
                     }
                 }
+                developers {
+                    developer {
+                        id = "instaunofficial"
+                        name = "Nakul"
+                        email = "Nakuls426@gmail.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/Nakuls426/instagram-login-unofficial.git"
+                    developerConnection = "scm:git:ssh://github.com:Nakuls426/Nakuls426.git"
+                    url = "https://github.com/Nakuls426/instagram-login-unofficial/tree/master"
+                }
             }
-
         }
     }
 }
